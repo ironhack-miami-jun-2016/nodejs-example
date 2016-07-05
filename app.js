@@ -1,15 +1,9 @@
-var kirbyDance = require("kirby-dance");
+var mongoose = require("mongoose");
 var express = require("express");
-var chalk = require("chalk");
 
+mongoose.connect("mongodb://localhost/blah");
 
-console.log("Hello");
-
-var kirbies = kirbyDance(10);
-
-console.log( chalk.white.bgBlue(kirbies) );
-
-
+var Booking = mongoose.model("Booking", { people: Number, time: Date });
 
 
 var app = express();
@@ -17,7 +11,30 @@ var app = express();
 app.set("view engine", "ejs");
 
 app.get("/", function (request, response) {
-  response.render("home");
+  Booking.find(function (error, results) {
+    if (error) {
+      throw error;
+    }
+
+    response.render("home", { bookings: results });
+  });
+});
+
+app.get("/bookings/new", function (request, response) {
+  response.render("bookings/new");
+});
+
+app.post("/bookings", function (request, response) {
+  var peeps = Math.floor(5 * Math.random()) + 1;
+  var theBooking = new Booking({ people: peeps, time: new Date(2016, 7, 6) });
+
+  theBooking.save(function (err) {
+    if (err) {
+      throw err;
+    } else {
+      response.redirect("/");
+    }
+  });
 });
 
 app.listen(3000);
