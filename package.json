@@ -1,0 +1,17 @@
+{
+  "name": "nodeexample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nizar Khalife Iglesias <khalifenizar@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "kirby-dance": "^0.1.0"
+  }
+}
